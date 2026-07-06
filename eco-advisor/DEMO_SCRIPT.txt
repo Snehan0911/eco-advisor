@@ -1,0 +1,73 @@
+================================================================================
+eco-advisor — 3-Minute Demo Video Script
+================================================================================
+
+[SCREEN]
+Show the GitHub repository page or the homepage of the eco-advisor project.
+
+[SPOKEN]
+"Hello everyone! Today, I am excited to introduce eco-advisor, an intelligent ecological assistant built with Google's Agent Development Kit 2.0. eco-advisor is designed to help anyone reduce their environmental footprint and build zero-waste habits by providing instant, verified answers on carbon footprints, waste sorting, and sustainable product alternatives."
+
+[SCREEN]
+Switch to VS Code showing the project structure:
+- app/agent.py
+- app/mcp_server.py
+- app/fast_api_app.py
+
+[SPOKEN]
+"Let's look under the hood. eco-advisor is designed code-first as an ADK workflow graph. At the entry point sits our security checkpoint node, which protects user privacy by scrubbing emails and phone numbers, and filters out prompt injections before any request reaches the orchestration layer. Once cleared, requests are routed to specialized sub-agents: a Carbon Advisor and a Recycling Advisor."
+
+[SCREEN]
+Open app/mcp_server.py and highlight the tool definitions.
+
+[SPOKEN]
+"To prevent mathematical hallucinations and deliver precise calculations, our agents are wired into a local Model Context Protocol server. This MCP server exposes custom tools like carbon calculations, recycling directories, compost checking, and green product search."
+
+[SCREEN]
+Open terminal and show the playground starting:
+make playground
+
+[SPOKEN]
+"Starting the playground is simple using our Makefile. We run 'make playground' and our development server starts instantly, listening on port 18081."
+
+[SCREEN]
+Switch to Chrome showing the ADK Playground UI loaded at http://localhost:18081.
+
+[SPOKEN]
+"Here is the local playground. Let's see the agent in action. First, let's calculate the footprint of a daily activity. I will ask the agent to 'Calculate carbon footprint for 150 driving miles'."
+
+[SCREEN]
+Type the query and press send. Watch the text stream in.
+Query: "Calculate carbon footprint for 150 driving miles"
+Agent Response: "Activity: driving_miles, Quantity: 150. Estimated carbon impact: 60.60 kg CO2."
+
+[SPOKEN]
+"The orchestrator delegated this directly to the Carbon Advisor, which invoked the 'calculate_carbon_footprint' tool on the MCP server and streamed the result back. That's a precise 60.60 kg of CO2!"
+
+[SCREEN]
+Type the next query.
+Query: "Suggest an eco-friendly alternative for plastic water bottles"
+Agent Response: "Eco-friendly alternatives for water bottles: Use a reusable food-grade stainless steel or glass water bottle instead of single-use plastic bottles."
+
+[SPOKEN]
+"Next, if we want to replace common plastic products, the agent calls the product alternative tool to recommend sustainable, reusable swaps, helping users make impact-focused purchasing choices."
+
+[SCREEN]
+Type the next query.
+Query: "Can I compost a paper towel?"
+Agent Response: "'paper towel' is Brown Compostable. Tear into small pieces to help decomposition, and add to the compost pile."
+
+[SPOKEN]
+"Lastly, our Recycling Advisor helps clear up waste-sorting confusion instantly. By querying the composting database, it confirms that paper towels are brown compostable materials and even provides tips on how to prep them."
+
+[SCREEN]
+Show the FastAPI terminal console with the structured JSON audit logs printing.
+
+[SPOKEN]
+"Behind the scenes, every single query prints a structured JSON audit log indicating safety clearance, guaranteeing that our security checkpoint operates reliably and securely for every transaction."
+
+[SCREEN]
+Switch back to the presentation slide showing the value summary.
+
+[SPOKEN]
+"With eco-advisor, zero-waste living becomes simple, structured, and accessible to everyone. Thank you!"
