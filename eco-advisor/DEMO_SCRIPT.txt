@@ -2,72 +2,44 @@
 eco-advisor — 3-Minute Demo Video Script
 ================================================================================
 
-[SCREEN]
-Show the GitHub repository page or the homepage of the eco-advisor project.
+[0:00 — HOOK]
+(pause)
+"Hello everyone! Today, I am excited to introduce eco-advisor, a secure, multi-agent AI assistant designed to help individuals and businesses make smarter ecological choices. Finding practical sustainability info—like carbon footprints, localized recycling sorting rules, and eco-friendly swaps—usually takes hours of manual research, but eco-advisor puts all of it in one place."
 
-[SPOKEN]
-"Hello everyone! Today, I am excited to introduce eco-advisor, an intelligent ecological assistant built with Google's Agent Development Kit 2.0. eco-advisor is designed to help anyone reduce their environmental footprint and build zero-waste habits by providing instant, verified answers on carbon footprints, waste sorting, and sustainable product alternatives."
+[0:20 — WHAT IT IS]
+(pause)
+"eco-advisor is an AI assistant belonging to the 'Agents for Good' track, focusing on environmental sustainability. Built code-first using Google's Agent Development Kit (ADK) 2.0, it connects specialized sub-agents with external computation tools to deliver accurate, non-hallucinated ecological advice."
 
-[SCREEN]
-Switch to VS Code showing the project structure:
-- app/agent.py
-- app/mcp_server.py
-- app/fast_api_app.py
+[0:40 — SHOW THE BANNER]
+(show assets/cover_page_banner.png)
+"At a glance, the eco-advisor dashboard offers clean interfaces to calculate carbon footprints, look up sorting rules, and recommend sustainable product swaps in a modern, dark-themed dashboard."
 
-[SPOKEN]
-"Let's look under the hood. eco-advisor is designed code-first as an ADK workflow graph. At the entry point sits our security checkpoint node, which protects user privacy by scrubbing emails and phone numbers, and filters out prompt injections before any request reaches the orchestration layer. Once cleared, requests are routed to specialized sub-agents: a Carbon Advisor and a Recycling Advisor."
+[1:00 — ARCHITECTURE]
+(show assets/architecture_diagram.png)
+"Let's walk through the architecture.
+First, every user query starts at the Security Checkpoint node to check for injection attacks and scrub PII like email addresses and phone numbers.
+Next, the query routes to the central Orchestrator agent which parses the intent.
+If the intent is clear, the Orchestrator routes the query using AgentTools to either the Carbon Advisor or the Recycling Advisor.
+If the query is ambiguous, the workflow pauses at the Human node via request_input to ask for user parameters.
+Finally, the specialized sub-agents connect to the MCP Server containing the footprint calculator, recycling directories, and product catalogs."
 
-[SCREEN]
-Open app/mcp_server.py and highlight the tool definitions.
+[2:00 — LIVE DEMO]
+(switch to playground at localhost:18081)
+"Let's run a live demo!
+First, we'll ask the agent: 'Calculate carbon footprint for 150 driving miles'.
+(pause)
+You can see the Orchestrator delegates this query to the Carbon Advisor, which calls the calculate_carbon_footprint MCP tool, yielding an exact 60.60 kg of CO2 without any math errors.
+Next, let's ask: 'Suggest an eco-friendly alternative for plastic water bottles'.
+(pause)
+The Carbon Advisor invokes the search_eco_products tool, suggesting food-grade stainless steel or glass bottle alternatives.
+Finally, we query: 'Can I compost a paper towel?'.
+(pause)
+The Recycling Advisor checks the composting guidelines and immediately confirms it's brown compostable and gives shredding advice."
 
-[SPOKEN]
-"To prevent mathematical hallucinations and deliver precise calculations, our agents are wired into a local Model Context Protocol server. This MCP server exposes custom tools like carbon calculations, recycling directories, compost checking, and green product search."
+[3:00 — SECURITY & MCP]
+(pause)
+"The security checkpoint ensures all prompts are safely sanitized and logged to a structured JSON audit trail, while the MCP server guarantees that math and data lookups are offloaded to hardcoded algorithms rather than unpredictable LLM generations."
 
-[SCREEN]
-Open terminal and show the playground starting:
-make playground
-
-[SPOKEN]
-"Starting the playground is simple using our Makefile. We run 'make playground' and our development server starts instantly, listening on port 18081."
-
-[SCREEN]
-Switch to Chrome showing the ADK Playground UI loaded at http://localhost:18081.
-
-[SPOKEN]
-"Here is the local playground. Let's see the agent in action. First, let's calculate the footprint of a daily activity. I will ask the agent to 'Calculate carbon footprint for 150 driving miles'."
-
-[SCREEN]
-Type the query and press send. Watch the text stream in.
-Query: "Calculate carbon footprint for 150 driving miles"
-Agent Response: "Activity: driving_miles, Quantity: 150. Estimated carbon impact: 60.60 kg CO2."
-
-[SPOKEN]
-"The orchestrator delegated this directly to the Carbon Advisor, which invoked the 'calculate_carbon_footprint' tool on the MCP server and streamed the result back. That's a precise 60.60 kg of CO2!"
-
-[SCREEN]
-Type the next query.
-Query: "Suggest an eco-friendly alternative for plastic water bottles"
-Agent Response: "Eco-friendly alternatives for water bottles: Use a reusable food-grade stainless steel or glass water bottle instead of single-use plastic bottles."
-
-[SPOKEN]
-"Next, if we want to replace common plastic products, the agent calls the product alternative tool to recommend sustainable, reusable swaps, helping users make impact-focused purchasing choices."
-
-[SCREEN]
-Type the next query.
-Query: "Can I compost a paper towel?"
-Agent Response: "'paper towel' is Brown Compostable. Tear into small pieces to help decomposition, and add to the compost pile."
-
-[SPOKEN]
-"Lastly, our Recycling Advisor helps clear up waste-sorting confusion instantly. By querying the composting database, it confirms that paper towels are brown compostable materials and even provides tips on how to prep them."
-
-[SCREEN]
-Show the FastAPI terminal console with the structured JSON audit logs printing.
-
-[SPOKEN]
-"Behind the scenes, every single query prints a structured JSON audit log indicating safety clearance, guaranteeing that our security checkpoint operates reliably and securely for every transaction."
-
-[SCREEN]
-Switch back to the presentation slide showing the value summary.
-
-[SPOKEN]
-"With eco-advisor, zero-waste living becomes simple, structured, and accessible to everyone. Thank you!"
+[3:30 — IMPACT / CLOSE]
+(pause)
+"eco-advisor empowers users to make positive environmental choices every day. By providing instant, clear, and verified answers, it helps lower the barrier to sustainable living and zero-waste habits. Thank you!"

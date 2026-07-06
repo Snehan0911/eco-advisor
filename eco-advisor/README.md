@@ -107,6 +107,14 @@ graph TD
 
 ⚠ NEVER push .env to GitHub. Your API key will be exposed publicly.
 
+## Assets
+
+### Architecture Diagram
+![Architecture Diagram](assets/architecture_diagram.png)
+
+### Cover Page Banner
+![Cover Page Banner](assets/cover_page_banner.png)
+
 ## Demo Script
 
-Refer to the demo script detailing spoken presentation narration and screen instructions: [DEMO_SCRIPT.txt](DEMO_SCRIPT.txt)
+The step-by-step presentation script is available in [DEMO_SCRIPT.txt](DEMO_SCRIPT.txt).
