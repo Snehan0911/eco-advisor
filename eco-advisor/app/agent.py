@@ -1,16 +1,29 @@
 import datetime
 import json
 import re
+import sys
 from typing import Any
 
 from google.adk.agents import LlmAgent
 from google.adk.apps import App
 from google.adk.models import Gemini
 from google.adk.tools import AgentTool, request_input
+from google.adk.tools.mcp_tool import McpToolset, StdioConnectionParams
 from google.adk.workflow import Workflow, Edge, START, node
 from google.genai import types
+from mcp import StdioServerParameters
 
 from app.config import config
+
+# Initialize MCP Toolset connection parameters
+mcp_params = StdioServerParameters(
+    command=sys.executable,
+    args=["-m", "app.mcp_server"],
+    env={}
+)
+mcp_toolset = McpToolset(
+    connection_params=StdioConnectionParams(server_params=mcp_params)
+)
 
 # 1. Specialized Sub-agents
 carbon_advisor = LlmAgent(
@@ -21,8 +34,8 @@ carbon_advisor = LlmAgent(
     ),
     instruction="""You are an expert carbon footprint advisor.
 Analyze the user's consumption or queries to calculate carbon emissions or suggest energy efficiency measures.
-State the carbon impact in kg CO2 where possible. Be concise.""",
-    tools=[]
+State the carbon impact in kg CO2 where possible. Use calculate_carbon_footprint or search_eco_products if relevant. Be concise.""",
+    tools=[mcp_toolset]
 )
 
 recycling_advisor = LlmAgent(
@@ -33,8 +46,8 @@ recycling_advisor = LlmAgent(
     ),
     instruction="""You are an expert recycling advisor.
 Provide clear guidance on waste sorting, recycling, composting, and disposing of specific materials.
-Advise on local disposal regulations. Be concise.""",
-    tools=[]
+Advise on local disposal regulations. Use get_recycling_rules or get_composting_guideline if relevant. Be concise.""",
+    tools=[mcp_toolset]
 )
 
 # 2. Orchestrator Agent
@@ -111,7 +124,7 @@ def security_checkpoint(ctx) -> str:
         return "security_event"
 
     ctx.route = "clear"
-    return "clear"
+    return cleaned_text
 
 @node
 def security_event(ctx) -> str:

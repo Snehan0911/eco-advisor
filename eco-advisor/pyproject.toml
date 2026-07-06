@@ -8,6 +8,9 @@ authors = [
 
 dependencies = [
     "google-adk[gcp]>=2.0.0,<3.0.0",
+    "mcp>=1.0.0,<2.0.0",
+    "fastapi>=0.110.0,<1.0.0",
+    "uvicorn>=0.29.0,<1.0.0",
     "a2a-sdk[http-server]~=0.3.22",
     "aiohttp>=3.13.4",
     "opentelemetry-instrumentation-google-genai>=0.1.0,<1.0.0",
