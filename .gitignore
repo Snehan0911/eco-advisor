@@ -1,0 +1,10 @@
+# Secrets
+.env
+*.env
+.env.*
+
+# System
+.adk/
+.venv/
+__pycache__/
+*.pyc
