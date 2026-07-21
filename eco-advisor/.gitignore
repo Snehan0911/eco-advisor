@@ -243,3 +243,6 @@ terraform.tfstate.backup
 
 # Artifacts & traces
 artifacts/
+
+# Large media files
+*.mp4
